@@ -1,0 +1,13 @@
+{
+  "name": "pokedex",
+  "version": "1.0.0",
+  "description": "Atividade de Desenvolvimento WEB",
+  "main": "app.js", 
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
