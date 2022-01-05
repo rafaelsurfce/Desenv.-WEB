@@ -1,11 +1,12 @@
 Exercício Prático
+O seu objetivo neste atividade é melhorar a Pokedex desenvolvida na lista anterior. Para isso vamos utilizar o framework Express.
 
-Crie um projeto node chamado Pokedex. Esse projeto deve ter na pasta raiz um arquivo package.json devidamente preenchido com os dados da aplicação.
+Crie uma rota chamada /pokemons que ao ser acessada deve listar os pokemons de sua pokedex. Nesta tela apenas os seguintes atributos devem ser mostrados: - Nome - Númeo da espécie - Tipos (todos para aquels pokemons que possuem mais de um tipo)
 
-Crie um script JS chamado ./models/pokemons.js que deve expor os dados de todos os pokemons contidos no arquivos pokedex.json. O objeto JS com os dados deve ser exportado para que possa ser usado como módulo em outros scripts JS.
+Para cada pokemon listado, deve existir um link para uma rota chamada /pokemons/id, onde id é o id do pokemon
 
-Crie um script JS chamado listar_pokemons.js que deve exibir no console todos os pokemons do pokedex.json. Os seguintes atributos devem ser impressos: - id - nome - pvMax - ataque - defesa - ataque especial - defesa especial - velocidade - Dica: use a função console.table
+A rota pokemon/id deve mostrar mais detlhes do pokemon escolhido. Nesta página os seguintes atributos devem ser listados: - Nome - Número da espécios - Tipos - PvMax - Ataque - Defesa - Ataque Especial - Defesa Especial - Velocidade - Peso - Altura
 
-Crie um script app.js que cria um servidor Web e que retorna um HTML que lista todos os pokemons do pokedex.json quando a rota /pokemons for requisitada via GET. Os seguintes atributos devem serem listados são os mesmos listados anteriormente.
+A rota / deve redirecionar o usuário a lista de pokemons (/pokemons)
 
-Faça com que o script app.js seja executado a partir do comando npm start.
+Extra [1 ponto]: Utilizar uma template engine, sugestão handlebars para evitar que o código HTML seja escrito dentro das funções JS.
