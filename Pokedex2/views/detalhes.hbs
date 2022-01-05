@@ -1,0 +1,43 @@
+
+<div class='border col-lg-4 justify-content-center d-flex flex-row'>
+   <div class='col-lg-4 d-flex flex-row-reverse align-self-start'>
+      <img class=' ' src="{{pokemon.imagem}}" alt=""  width="225px">
+   </div>
+   <div class='p-2'>
+      <span class="text-uppercase fw-bold">{{pokemon.nome}}</span> 
+      <span class='py-4 text-lowercase fw-lighter'>{{pokemon.tipos}}</span>
+      <br>
+      <span>
+         Peso {{pokemon.peso}} Ibs<br>
+         Altura {{pokemon.altura}}<br>
+         Base Stats
+         <hr width="250px">
+      </span>
+      
+      Pvmax:<div class='progress d-flex'><div class="progress-bar" style='width: {{pokemon.pvMax}}%' role="progressbar" aria-valuenow="{{pokemon.pvMax}}" aria-valuemin="0" aria-valuemax="100"></div><br></div>
+      
+      Ataque:<div class='progress d-flex'><div class="progress-bar" style='width: {{pokemon.ataque}}%' role="progressbar" aria-valuenow="{{pokemon.ataque}}" aria-valuemin="0" aria-valuemax="100"></div><br></div>
+      Defesa:<div class='progress d-flex'><div class="progress-bar" style='width: {{pokemon.defesa}}%' role="progressbar" aria-valuenow="{{pokemon.defesa}}" aria-valuemin="0" aria-valuemax="100"></div><br></div>
+      Ataque Esp:<div class='progress d-flex'><div class="progress-bar" style='width: {{pokemon.ataqueEspecial}}%' role="progressbar" aria-valuenow="{{pokemon.ataqueEspecial}}" aria-valuemin="0" aria-valuemax="100"></div><br></div>
+      Defesa Esp:<div class='progress d-flex'><div class="progress-bar" style='width: {{pokemon.defesaEspecial}}%' role="progressbar" aria-valuenow="{{pokemon.defesaEspecial}}" aria-valuemin="0" aria-valuemax="100"></div><br></div>
+      Velocidade:<div class='progress d-flex'><div class="progress-bar" style='width: {{pokemon.velocidade}}%' role="progressbar" aria-valuenow="{{pokemon.velocidade}}" aria-valuemin="0" aria-valuemax="100"></div><br></div>
+   </div>
+
+
+   
+   
+</div>
+   
+
+   
+
+
+</div>
+
+<div class='text-center py-3'>
+            <a class='btn btn-secondary' href='/pokemons'>
+                Voltar
+            </a>
+        </div>
+
+

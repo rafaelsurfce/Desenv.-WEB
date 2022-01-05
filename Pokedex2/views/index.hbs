@@ -1,0 +1,27 @@
+{{#each pokemons}}
+
+<div class='border col-lg-2 mx-1'>
+        <div class='text-center'>
+            <img src='{{this.imagem}}'><br>
+        </div>
+
+        <div class='text-left fw-bold text-uppercase'>
+            {{this.nome}}<br>
+        </div> 
+
+        <div class='text-monospace'>
+            <span style='font-size: 12px;'>{{this.tipos}}</span><br>
+        </div> 
+        <div class='text-center py-3'>
+            <a class='btn btn-danger' href='/pokemons/{{this.id}}'>
+                Detalhes
+            </a>
+        </div>
+</div>
+
+
+
+
+{{/each}}
+
+    
