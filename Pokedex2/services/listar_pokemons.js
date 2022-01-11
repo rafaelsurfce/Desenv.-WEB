@@ -66,7 +66,7 @@ const dbPath = path.resolve(__dirname, '..', 'db', 'pokedex-light.json');
 
     listarPokemon(id){
 
-        for(let i = 0; i < this.pokemons.length; i++){
+        for(let i in this.pokemons){
             if(this._pokemons[i].id === id){
                 return this._pokemons[i];
             }
@@ -87,6 +87,6 @@ const dbPath = path.resolve(__dirname, '..', 'db', 'pokedex-light.json');
 
 module.exports = PokemonService;
 
-//const pokemonService = new PokemonService();
-//console.log(pokemonService.listarPokemon(5));
+const pokemonService = new PokemonService();
+console.log(pokemonService.listarPokemon(1));
 //console.log(pokemonService.pokemons);

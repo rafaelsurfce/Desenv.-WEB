@@ -20,7 +20,7 @@ router.get('/', (pergunta,resposta)  =>{
 router.get('/:id', (pergunta,resposta) => {
     const id = pergunta.params.id;
     const pokemon = pokemonService.listarPokemon(Number(id));
-    console.log(pokemon)
+    //console.log(pokemon)
 
     resposta.render('detalhes', {
         pokemon: pokemon

@@ -1,5 +1,5 @@
 
-const router = require("../Pokedex/router/pokemonsRouter");
+const router = require("../Pokedex2/router/pokemonsRouter");
 const express = require('express');
 const { engine } = require('express-handlebars');
 
