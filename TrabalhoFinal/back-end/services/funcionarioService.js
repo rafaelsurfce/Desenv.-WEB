@@ -33,14 +33,16 @@ class FuncionarioService{
 
         try {
             const user = await funcionarios.findOne({userName: usuario}).exec();
+            const cpff = await funcionarios.findOne({cpf: cpf}).exec();
             
             
 
-            console.log(user);
+            
             let result;
-            if (user != null && usuario === user.userName){
-                result = "já existe um usuário cadastro com esse login, ou cpf";
+            if ((user != null && usuario === user.userName)||(cpff != null && cpf === cpff.cpf)){
+                result = "já existe um usuário cadastro com esse userName, ou CPF";
             }
+
             else if (cpf === null || usuario === null || password === null || confPassword === null ){
                 result = " Campos marcados com * devem ser obrigatorios ";
             }

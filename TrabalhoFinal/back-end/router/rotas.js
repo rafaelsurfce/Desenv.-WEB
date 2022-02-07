@@ -15,7 +15,7 @@ router.get('/', async (pergunta, resposta) =>{
 
     //variaveis de teste
     const username = 'rafaelsurfce';
-    const password = '889618695858x';
+    const password = '123456';
     
     const result = await funcionarioService.consultarFuncionario(username, password);
     
@@ -32,7 +32,7 @@ router.get('/cadastro', async (pergunta, resposta) =>{
     const cpf = '070.178.283.80';
     const telefone = '193';
     const email = 'rafaelsurfc@alu.ufc.br';
-    const usuario = 'rafaelsurfce';
+    const usuario = 'surfce';
     const senha = '123456'
     const senha2 = '123456'
     const result = await funcionarioService.cadastrarFuncionario(nome, data, cpf, telefone, email, usuario, senha, senha2);

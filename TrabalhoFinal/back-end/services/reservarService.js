@@ -76,7 +76,7 @@ class ReservarService {
         //select bd
     }
     excluirReserva(id){
-        reservas.deleteOne({id: id});
+        
     }
     atualizarReserva(id){
 
