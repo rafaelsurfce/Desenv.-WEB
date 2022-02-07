@@ -17,7 +17,7 @@ class FuncionarioService{
 
             console.log(query)
 
-            if (query!=null && usuario === query.userName && senha === query.password){
+            if (query !=null && usuario === query.userName && senha === query.password){
                 return "usuário logado com sucesso"
             }
             else{
@@ -32,23 +32,25 @@ class FuncionarioService{
     async cadastrarFuncionario(nome=null, dataDeNascimento=null, cpf, telefone=null, email=null, usuario, password, confPassword){
 
         try {
-            const query = await funcionarios.findOne({userName: usuario, cpf: cpf}).exec();
+            const user = await funcionarios.findOne({userName: usuario}).exec();
+            
+            
 
-            console.log(query);
+            console.log(user);
             let result;
-            if (query !=null && usuario === query.userName || cpf === query.cpf){
+            if (user != null && usuario === user.userName){
                 result = "já existe um usuário cadastro com esse login, ou cpf";
             }
             else if (cpf === null || usuario === null || password === null || confPassword === null ){
                 result = " Campos marcados com * devem ser obrigatorios ";
             }
-            else if (password != password){
+            else if (password != confPassword){
                 result =  " senhas nao correspondem ";
             }
 
             else {
                 const funcionario = new Funcionario(nome, dataDeNascimento, cpf, telefone, email, usuario, password)
-                funcionarios.create({
+                await funcionarios.create({
                     nome: funcionario.nome,
                     dataDeNascimento: funcionario.nascimento,
                     cpf: funcionario.cpf,
@@ -56,13 +58,8 @@ class FuncionarioService{
                     email: funcionario.email,
                     userName: funcionario.usuario,
                     password: funcionario.password
-                }).save().then(() => {
-                    result = 'usuario cadastrado com sucesso'
-                    console.log(result)
-                }).catch((err) =>{
-                    result = 'Houve um erro ao registrar o usuário: ' + err
-                    console.log(result)
-                });
+                })
+                result = 'usuario cadastrado com sucesso';
                 
             }
 
