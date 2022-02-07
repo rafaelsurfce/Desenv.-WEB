@@ -1,0 +1,197 @@
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    
+}
+
+.imagem img {
+    justify-content: center;
+    margin: auto;
+    margin-top: 50px;
+    background-color: #422E26;
+    height: 100px;
+    width: 150px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.corpo {
+    background-color: #422E26;
+    height: 100vh;
+    width: 10%;
+    display: table;
+    flex-direction: column;
+    float: left;
+}
+#menu {
+    text-align: center;
+    margin-top: 30px;
+    display: table;
+    top: 35%;
+}
+
+#menu ul{
+    border-bottom: 1px solid #bdb8d7;
+    padding: 0px;
+    list-style: none;
+}
+a{
+     text-decoration: none;
+     background-color: #422E26;
+     display: flex;
+     padding-left: 50px;
+     font-family: 'Josefin Sans', sans-serif;
+     color: rgb(190, 190, 190);
+     transition: all ease 0.5s;
+ }
+
+li a{
+    align-items: center;
+    text-decoration: none;
+    background-color: #422E26;
+    font-family: 'Josefin Sans', sans-serif;
+    padding-left: 50px;
+    color: rgb(190, 190, 190);
+    height: 50px;
+    width: 100%;
+    border-top: 1px solid rgb(190, 190, 190);
+    border-bottom: 1px solid #bdb8d7;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: all ease 0.5s;
+}
+
+li a:hover{
+    text-decoration: none;
+    background-color: #362720;
+    display: flex;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #ffffff;
+    padding: 30px;
+    border-top: 1px solid rgb(190, 190, 190);
+    border-bottom: 1px solid #bdb8d7;
+    border-bottom: 1px solid rgba(0,0,0,0.05);   
+}
+
+#titulo{
+    display: flex;
+    justify-content: center;
+    font-family: Fantasy, Copperplate;
+    font-size: 20px;
+    border-top: 2px solid rgb(190, 190, 190);
+    color: white;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+#logout {
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+    color: rgb(190, 190, 190);
+    text-align: center;
+    margin-top: 70px;
+}
+
+
+
+
+
+/* reservar */
+
+
+h2{
+    text-align: center;
+    background-color: #422E26;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+#inforCli {
+    font-family: 'Roboto', sans-serif;;
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    background-color: aliceblue;
+    border:  solid 1px;
+    border-color: rgb(92, 92, 92);
+    height: 40px;
+    font-size: 45px;
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+}
+#cliente{
+    width: 70%;
+}
+#endereco {
+    width: 25.8%;
+}
+
+#inforCli label{
+    font-size: 15px;
+    text-align: right;
+    display: inline-block;
+    padding: 15px;
+    width: 90px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#btnReservar{
+    width: 120px;
+    border: solid;
+    border-color: #422E26;
+    background-color: #422E26;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    border-radius: 10px;
+    
+}
+
+#btnReservar:hover {
+    width: 120px;
+    border: solid;
+    border-color: #422E26;
+    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    color: #422E26;
+    border-radius: 10px;
+
+}
+
+
+
+/* Consulta */
+table {
+    margin-top: 10px;
+    width: 500px; /* 140px * 5 column + 16px scrollbar width */
+}
+
+tbody, thead tr { display: block; }
+
+tbody {
+    height: 490px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+thead th {
+    width: 143.7px;
+}
+tbody td {
+    width: 145px;
+}
+
+thead th:last-child {
+    width: 156px; /* 140px + 16px scrollbar width */
+}
