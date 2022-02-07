@@ -56,7 +56,7 @@ export default {
       const pergunta = await fetch('http://localhost:2222/login', {
         method: "GET",
         headers: { "Content-Type": "application/json" },
-        body: dataJson
+        query: dataJson
       });
 
 
