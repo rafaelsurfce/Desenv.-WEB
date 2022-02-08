@@ -1,6 +1,5 @@
 const Reserva = require('../models/reserva');
 const reservas = require('./../db/reservas');
-const mongoose = require('mongoose');
 const acaoService = require('./acaoService');
 
 
@@ -24,53 +23,56 @@ class ReservarService {
 
 
 
-    inserirReserva(cliente, cpf, rg, telefone=null, endereco=null, data, mesa, cadeiras, horaInicial, horaFinal ){
-        //select ao banco aqui
-        const resultData= null;
-        const resultMesa = null;
-        const resultHoraInicial = null;
-        const resultHoraFinal = null;
-        if(mesa === resultMesa && data === resultData && (horaInicial >= resultHoraInicial && horaInicial <= resultHoraFinal)){
-            return "Já consta uma reserva nessa mesa"
-        }
-        else if (cliente === null  || cpf === null || rg === null || mesa === null || cadeiras === null || data === null || horaInicial === null || horaFinal === null){
-            return "Existem alguns campos obrigatorios em branco, impossivel reservar"
-        }
-        else {
-            let mes = date.getMonth();
-            let ano = date.getFullYear();
-            let dia = date.getDate();
-            let hora = date.getHours();
-            let minuto = date.getMinutes();
-            let segundo = date.getSeconds();
-            const id = `${mes}${ano}${dia}${hora}${minuto}${segundo}`
+    async inserirReserva(cliente, cpf, rg, telefone=null, endereco=null, data, mesa, cadeiras, horaInicial, horaFinal){
+        
+        try {
 
-            const reserva = new Reserva(cliente, cpf, rg, telefone, endereco, mesa, cadeiras, data, horaInicial, horaFinal, id)
+            const query = await reservas.findOne({mesa: mesa, data: data}).exec();
 
-            let result;
-            new reservas({
-                cliente: reserva.cliente,
-                cpf: reserva.cpf,
-                rg: reserva.rg,
-                telefone: reserva.telefone,
-                endereco: reserva.endereco,
-                mesa: reserva.mesa,
-                cadeiras: reserva.cadeiras,
-                data: reserva.data,
-                horaInicial: reserva.horaInicial,
-                horaFinal: reserva.horaFinal,
-                id: reserva.id
+            console.log(query)
 
-            }).save().then(() => {
-                acao.inserirAcao(usuario, Number(id), 'adição',   )
-                result = 'reserva cadastrada com sucesso'
-                console.log(result)
-            }).catch((err) =>{
-                result = 'Houve um erro ao registar a reserva: ' + err
-                console.log(result)
-            });
-            return result
-        }
+            if(query != null && horaInicial >= query.horaInicial && horaInicial <= query.horaFinal){
+                return "Já consta uma reserva nessa mesa"
+            }
+            else if (cliente === null  || cpf === null || rg === null || mesa === null || cadeiras === null || data === null || horaInicial === null || horaFinal === null){
+                return "Existem alguns campos obrigatorios em branco, impossivel reservar"
+            }
+            else {
+                let mes = date.getMonth();
+                let ano = date.getFullYear();
+                let dia = date.getDate();
+                let hora = date.getHours();
+                let minuto = date.getMinutes();
+                let segundo = date.getSeconds();
+                const id = `${mes}${ano}${dia}${hora}${minuto}${segundo}`;
+    
+                const reserva = new Reserva(id, cliente, cpf, rg, telefone, endereco, mesa, cadeiras, data, horaInicial, horaFinal)
+    
+                let result;
+                await reservas.create({
+                    cliente: reserva.cliente,
+                    cpf: reserva.cpf,
+                    rg: reserva.rg,
+                    telefone: reserva.telefone,
+                    endereco: reserva.endereco,
+                    mesa: reserva.mesa,
+                    cadeiras: reserva.cadeiras,
+                    data: reserva.data,
+                    horaInicial: reserva.horaInicial,
+                    horaFinal: reserva.horaFinal,
+                    id: reserva.id
+    
+                })
+                return 'reserva cadastrada com sucesso'
+            }
+
+        }  catch (err){ return err}
+        
+
+
+
+        
+        
     }
     procurarReserva(id){
         //select bd
@@ -82,8 +84,17 @@ class ReservarService {
 
 
     }
-    listarReservas(){
-        //selectbd 
+    async listarReservas(){
+
+        try{
+
+            const query = await reservas.findOne().exec();
+            console.log(query);
+            return query;
+
+        }
+        catch(erro){ return erro}
+        
     }
 
 }

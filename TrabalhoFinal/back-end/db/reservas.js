@@ -2,20 +2,20 @@
 const mongoose = require('mongoose');
 
 const reservas = new mongoose.Schema({
-    cliente: {
-        type: String,
+    id: {
+        type: Number,
         require: true
     },
     cpf: {
-        type: Number,
+        type: String,
         require: true
     },
     rg: {
-        type: Number,
+        type: String,
         require: true
     },
     telefone: {
-        type: Number,
+        type: String,
     },
     endereco: {
         type: String
@@ -43,10 +43,11 @@ const reservas = new mongoose.Schema({
         type: Number,
         require: true
     },
-    id: {
-        type: Number,
+    cliente: {
+        type: String,
         require: true
     }
+    
 });
 
 

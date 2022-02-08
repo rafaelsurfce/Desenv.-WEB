@@ -5,8 +5,9 @@ const FuncionarioService = require('../services/funcionarioService');
 
 
 
-const funcionarioService = new FuncionarioService();
 
+const funcionarioService = new FuncionarioService();
+const reservarService = new ReservarService();
 
 const router = express.Router();
 
@@ -44,17 +45,34 @@ router.get('/cadastro', async (pergunta, resposta) =>{
 });
 
 
-router.get('/reservar', (pergunta, resposta) =>{
+router.get('/reservar', async(pergunta, resposta) =>{
+
+    //variaveis de teste
+
+    let cliente = 'Francieudo Barbosa';
+    let cpf = '123.456.789-80';
+    let rg = '2002020511561';
+    let telefone = '88994955956';
+    let endereco = 'rua furtunato silva';
+    let data = '2022-02-07';
+    let mesa = 16;
+    let cadeiras = 6;
+    let horaInicial = 16;
+    let horaFinal = 17;
 
 
-
+    const result = await reservarService.inserirReserva(cliente, cpf, rg, telefone, endereco, data, mesa, cadeiras, horaInicial, horaFinal);
+    resposta.status(200).send(result)
     
 });
 
 
 
 
-router.get('/consultar', (pergunta, resposta) =>{
+router.get('/consultar', async (pergunta, resposta) =>{
+    const result = await reservarService.listarReservas();
+
+    resposta.status(200).send(result);
    
 });
 
