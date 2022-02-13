@@ -6,14 +6,16 @@ import home from '../src/components/dasboard/home.vue'
 import reservar from '../src/components/dasboard/reservar.vue'
 import consultar from '../src/components/dasboard/consultar.vue'
 import historico from '../src/components/dasboard/historico.vue'
+import atualizar from '../src/components/dasboard/reservaUpdate.vue'
 
 const routes = [
-    { path: '/',  name: login, component: login },
-    { path: '/cadastro', name: cadastro, component: cadastro},
-    { path: '/home', name: home, component: home},
-    { path: '/reservar', name: reservar, component: reservar},
-    { path: '/consultar', name: consultar, component: consultar},
-    { path: '/historico', name: historico, component: historico}
+    { path: '/',  name: 'login', component: login },
+    { path: '/cadastro', name: 'cadastro', component: cadastro},
+    { path: '/home', name: 'home', component: home},
+    { path: '/reservar', name: 'reservar', component: reservar},
+    { path: '/consultar', name: 'consultar', component: consultar},
+    { path: '/historico', name: 'historico', component: historico},
+    { path: '/update', name: 'atualizar', component: atualizar}
    
   ]
 

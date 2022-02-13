@@ -2,7 +2,7 @@
 <div>
     <Menu/>
     <Cabecalho :apresentacao="apresentacao"/>
-    <pages>
+    <div>
         <div class='' id='main'>
 
             <div id='pages'>
@@ -31,7 +31,7 @@
                     <td>{{ reserva.data }}</td>
                     <td>{{ reserva.horaInicial }}:00</td>
                     <td>{{ reserva.horaFinal }}:00</td>
-                    <td><button class="btn btn-success btn-sm"><i class="bi bi-arrow-clockwise"></i></button> <button class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i></button></td>
+                    <td> <router-link v-bind:to="{ name: 'atualizar', params: { id: reserva.id } }"> <button class="btn btn-success btn-sm"><i class="bi bi-arrow-clockwise"></i></button> </router-link> <button class="btn btn-danger btn-sm" @click="deleteReserva(reserva.id)"><i class="bi bi-x-lg"></i></button></td>
                 
                 </tr>
         
@@ -46,7 +46,7 @@
         </div>
         
 
-    </pages>
+    </div>
 </div>
 
     
@@ -58,40 +58,48 @@
     
     import Menu from './componets/menu.vue'
     import Cabecalho from './componets/cabecalho.vue'
-   
-
-    
-
+    import axios from "../../../store/index"
 
     export default {
         name: 'Consultar',
         components: {
             Menu,
-            Cabecalho
+            Cabecalho,   
         },
         data(){
             return {
                 apresentacao: 'Consultar',  
-                reservas: null,   
-
+                reservas: {},   
                            
-            }
+            };
+        },
+        mounted() {
+            this.getReservas();
         },
         methods:{
 
         async getReservas(){
+            try{
+                const resposta = await axios.get('/consultar');
+                const {reservas} = resposta.data;
+                this.reservas = reservas;
+           }catch (erro) {console.log("erro foi: "+erro)}
 
-            const resposta = await fetch('http://localhost:2222/consultar');
-
-            const data = await resposta.json();
-
-            this.reservas = data;
+            
+              
         },
 
-        moutend() {
+        async deleteReserva(id) {
+            try{
+                console.log(id);
+                const resposta =  await axios.delete(`/consultar/${id}`);
+                const {msg} = resposta.data;
+                console.log(msg);
+                
+            }catch(erro){console.log(erro)}
+
             this.getReservas();
         }
-
         }
 }
 </script>
@@ -118,8 +126,6 @@
     float: right;
     min-height: 93.4%;
 }
-
-
 
 table {
     margin-top: 10px;

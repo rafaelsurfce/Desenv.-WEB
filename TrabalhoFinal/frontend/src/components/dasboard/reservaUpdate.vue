@@ -1,11 +1,11 @@
 <template>
-<div>
+    <div>
     <Menu/>
     <Cabecalho :apresentacao="apresentacao"/>
     <div>
         <div id='main'>
             <div id="pages">
-                        <form method="POST" @submit="reservar">
+                        <form method="POST" @submit="atualizar">
                             <div class='' id='inforCli'>
 
                                 <label for="">Cliente:*</label> <input type="text" id='cliente' v-model="cliente_input" placeholder="Nome do Cliente"><br>
@@ -25,16 +25,11 @@
 
                                 <br>
                                 <div class="font-weight-bold text-danger" >
-                                    - Campos marcados com * devem ser obrigatorios; <br>
-                                    - O tanto de mesas disponiveis é ilimitado no sistema; <br>
-                                    - O cliente pode escolher no máximo até 6 cadeiras; <br>
-                                    - Se caso uma mesa estiver reservada em um intervalo de horario o sistema deve avisar <br>
-                                    ao clicar no botão reservar; <br>
-                                    - O limite de horarios para escolha da reserva é de 11 horas até as 23 horas 
+                                   
                                     <center><p class="fw-bold text-dark">  {{ resultado }} </p></center>
                                 </div>
 
-                                <center><button id='btnReservar' type="submit"> Reservar </button></center>
+                                <center><button id='btnReservar' type="submit"> Atualizar </button></center>
                             </div> 
                         </form>
             </div>
@@ -44,27 +39,26 @@
 
     </div>
 </div>
-
-    
+  
 </template>
 
-
-
 <script>
-
     import Menu from './componets/menu.vue'
     import Cabecalho from './componets/cabecalho.vue'
-    import axios from '../../../store/index'
+    import axios from "../../../store/index"
+
 
     export default {
-        name: 'reservar',
+        name: 'reservaUpdate',
         components: {
             Menu,
             Cabecalho
         },
         data(){
             return{
-                apresentacao: 'Reservar',
+                apresentacao: 'Atualizar',
+                id: this.$route.params.id,
+                resultado: null,
                 cliente_input: null,
                 cpf_input: null,
                 rg_input: null,
@@ -75,61 +69,80 @@
                 data_input: null,
                 horaInicial_input: null,
                 horaFinal_input: null,
-                resultado: null
+                reserva: {}  
+
             }
-            },
+        },
+        mounted(){
+            this.getReservas();
+        },
         methods: {
-            async reservar(e){
-                e.preventDefault();
-                
-                
-                try{
-                    const data = {
-                    cliente: this.cliente_input,
-                    cpf: this.cpf_input,
-                    rg: this.rg_input,
-                    telefone: this.telefone_input,
-                    endereco: this.endereco_input,
-                    mesa: this.mesa_input,
-                    cadeiras: this.cadeiras_input,
-                    data: this.data_input,
-                    horaInicial: this.horaInicial_input,
-                    horaFinal: this.horaFinal_input,
-                }
-                
-                    const pergunta = await axios.post('/reservar', data)
-                    const {resultado} = pergunta.data;
-                    console.log(resultado);
-                    this.resultado = resultado;
-                    console.log('Reserva Efetuada')
-                
-                
-                
-
-                }catch(erro){console.log(erro)}
-
-
-
-                this.cliente_input = null;
-                this.cpf_input = null;
-                this.rg_input = null;
-                this.telefone_input = null;
-                this.endereco_input = null;
-                this.mesa_input = null;
-                this.cadeiras_input = null;
-                this.data_input = null;
-                this.horaInicial_input = null;
-                this.horaFinal_input = null;
-                
+            async getReservas(){
+                try {
+                    const resposta =  await axios.get('/consultar');
+                    const {reservas} = resposta.data;
+                    for (let reserva in reservas){
+                        
+                        if(String(reservas[reserva].id) === this.id){
+                            this.reserva = reservas[reserva];
+                            break
+                        }
+                        else{
+                            continue
+                        }
+                    }
+                } catch (error) {console.log(error)}
+                    this.cliente_input = this.reserva.cliente;
+                    this.cpf_input = this.reserva.cpf;
+                    this.rg_input = this.reserva.rg;
+                    this.telefone_input = this.reserva.telefone;
+                    this.endereco_input = this.reserva.endereco;
+                    this.mesa_input = this.reserva.mesa;
+                    this.cadeiras_input = this.reserva.cadeiras;
+                    this.data_input = this.reserva.data;
+                    this.horaInicial_input = this.reserva.horaInicial;
+                    this.horaFinal_input = this.reserva.horaFinal;
             },
-        }
-        
+            async atualizar(e){
+                e.preventDefault(e);
+                try {
+                    const data = {
+                        cliente: this.cliente_input,
+                        cpf: this.cpf_input,
+                        rg: this.rg_input,
+                        telefone: this.telefone_input,
+                        endereco: this.endereco_input,
+                        mesa: this.mesa_input,
+                        cadeiras: this.cadeiras_input,
+                        data: this.data_input,
+                        horaInicial: this.horaInicial_input,
+                        horaFinal: this.horaFinal_input,
+                    }
+                    const pergunta = await axios.put(`/consultar/${this.$route.params.id}`, data)
+                    const {resultado} = pergunta.data;
+                    console.log(resultado)
+                    this.resultado = resultado;
+                    this.cliente_input = null;
+                    this.cpf_input = null;
+                    this.rg_input = null;
+                    this.telefone_input = null;
+                    this.endereco_input = null;
+                    this.mesa_input = null;
+                    this.cadeiras_input = null;
+                    this.data_input = null;
+                    this.horaInicial_input = null;
+                    this.horaFinal_input = null;
+                } catch (error) {console.log(error)}
+            }
+            
+        },
+
+
     }
 </script>
 
-
-<style scoped>
-    * {
+<style>
+        * {
         margin: 0;
         padding: 0;
         outline: 0;

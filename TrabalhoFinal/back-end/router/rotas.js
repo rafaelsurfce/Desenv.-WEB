@@ -12,57 +12,32 @@ const reservarService = new ReservarService();
 const router = express.Router();
 
 
-router.get('/', async (pergunta, resposta) =>{
+router.post('/', async (pergunta, resposta) =>{
 
-    //variaveis de teste
-    const username = 'rafaelsurfce';
-    const password = '123456';
     
+    const {username, password} = pergunta.body;
     const result = await funcionarioService.consultarFuncionario(username, password);
-    
-    resposta.status(200).send(result)
+    resposta.status(200).json({resultado: result});
 
 });
 
 
-router.get('/cadastro', async (pergunta, resposta) =>{
+router.post('/cadastro', async (pergunta, resposta) =>{
+    const {nome, dataDeNascimento, cpf, telefone, email, usuario, password, confPassword} = pergunta.body;
 
-    //variaveis de teste
-    const nome = 'Rafael Lima Pereira';
-    const data = '1998-02-80';
-    const cpf = '070.178.283.80';
-    const telefone = '193';
-    const email = 'rafaelsurfc@alu.ufc.br';
-    const usuario = 'surfce';
-    const senha = '123456'
-    const senha2 = '123456'
-    const result = await funcionarioService.cadastrarFuncionario(nome, data, cpf, telefone, email, usuario, senha, senha2);
-
-    resposta.status(200).send(result);
-    
-
-    
+    const result = await funcionarioService.cadastrarFuncionario(nome, dataDeNascimento, cpf, telefone, email, usuario, password, confPassword);
+    resposta.status(200).json({msg: result});
 });
 
 
-router.get('/reservar', async(pergunta, resposta) =>{
+router.post('/reservar', async(pergunta, resposta) =>{
 
-    //variaveis de teste
-
-    let cliente = 'Francieudo Barbosa';
-    let cpf = '123.456.789-80';
-    let rg = '2002020511561';
-    let telefone = '88994955956';
-    let endereco = 'rua furtunato silva';
-    let data = '2022-02-07';
-    let mesa = 16;
-    let cadeiras = 6;
-    let horaInicial = 16;
-    let horaFinal = 17;
+    
+    const {cliente, cpf, rg, telefone, endereco, data, mesa, cadeiras, horaInicial, horaFinal} = pergunta.body;
 
 
     const result = await reservarService.inserirReserva(cliente, cpf, rg, telefone, endereco, data, mesa, cadeiras, horaInicial, horaFinal);
-    resposta.status(200).send(result)
+    resposta.status(200).json({resultado: result})
     
 });
 
@@ -72,7 +47,7 @@ router.get('/reservar', async(pergunta, resposta) =>{
 router.get('/consultar', async (pergunta, resposta) =>{
     const result = await reservarService.listarReservas();
 
-    resposta.status(200).send(result);
+    resposta.status(200).json({reservas: result});
    
 });
 
@@ -84,13 +59,20 @@ router.get('/historico', (pergunta, resposta) =>{
 
 
 
-router.delete('/:id', (pergunta, resposta) => {
-    const id = pergunta.params.id;
+router.delete('/consultar/:id', async (pergunta, resposta) => {
+
+    const id = pergunta.params.id
+    const result = await reservarService.excluirReserva(id);
+    resposta.status(200).json({msg: result })
 
 });
 
-router.put('/consultar/:id', (pergunta, resposta) => {
-
+router.put('/consultar/:id', async (pergunta, resposta) => {
+    const id = pergunta.params.id;
+    const {cliente, cpf, rg, telefone, endereco, data, mesa, cadeiras, horaInicial, horaFinal} = pergunta.body;
+    const result = await reservarService.atualizarReserva(id, cliente, cpf, rg, telefone, endereco, data, mesa, cadeiras, horaInicial, horaFinal)
+    resposta.status(200).json({resultado: result});
+    
 });
 
 module.exports = router;

@@ -3,7 +3,7 @@
            <header class='titulo'>
            LOGIN
            </header>
-           <form @submit="entrar(e)">
+           <form method="POST" @submit="entrar">
            <div class='' id="divinput"><!-- inputs -->
             <div>
               <i class="material-icons">person</i>
@@ -29,145 +29,138 @@
 
 <script>
 
-export default {
-  name: 'login',
-  components: {},
-  data(){
-    return {
-      resultado: null,
-      user_input: '',
-      password_input: '',
+  import axios from '../../../store/index'
 
-    }
-  },
-  methods: {
-    cadastro(){
-      //rota cadastro
+  export default {
+    name: 'login',
+    components: {},
+    data(){
+      return {
+        resultado: null,
+        user_input: null,
+        password_input: null,
+
+      }
     },
-    async entrar(e){
-      e.preventDefault();
+    methods: {
 
+      async entrar(e){
+        e.preventDefault(e);
 
-      const data = {
-        password: this.password_input,
-        user: this.user_input,
+        try{
+          const data = {
+          password: this.password_input,
+          username: this.user_input,
+          }
+          console.log(data);
+          const dataJson = data;
+          const pergunta = await axios.post('/', dataJson)
+          const {resultado} = pergunta.data;
+          if(resultado === 'Usuário ou senhas incorreta, ou inexistente'){
+            this.resultado = true;
+          }
+          else {
+            this.resultado = false;
+            this.$router.push({name: 'home'});
+          }
+
+        }catch(erro){console.log(erro)}
+
+        this.user_input = '';
+        this.password_input = '';
+
+      
       }
-      const dataJson = JSON.stringify(data)
-      const pergunta = await fetch('http://localhost:2222/login', {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        query: dataJson
-      });
-
-
-      const resposta = await resposta.JSON();
-
-
-      console.log(dataJson)
-
-      if(resposta === "Usuário ou senhas incorreta, ou inexistente"){
-       this.resultado = true;
-      }
-      else{
-        this.resultado = false;
-      }
-
-
-      this.user_input = '';
-      this.password_input = '';
-
-    
-    }
-  },
-}
+    },
+  }
 </script>
 
 <style>
 
-* {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-}
-
-
-#logar {
-    height: 350px;
-    width: 335px;
-    text-align: center;
-    background-color: #ffffff;
-    border-radius: 10px;
-    margin: auto;
-
+  * {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
   }
 
-  .titulo{
-    font-size: 35px;
-    border-radius: 10px 10px 0px 0px;
-    height: 48px;
+
+  #logar {
+      height: 350px;
+      width: 335px;
+      text-align: center;
+      background-color: #ffffff;
+      border-radius: 10px;
+      margin: auto;
+
+    }
+
+    .titulo{
+      font-size: 35px;
+      border-radius: 10px 10px 0px 0px;
+      height: 48px;
+      background-color: #422E26;
+      color:#ffffff;
+      font-weight: bold;
+    }
+      
+
+  i {
+    font-size: 24px;
+  }
+
+  #user, #password {
+    height: 40px;
+    width: 280px;
+    background-color: #DCDCDC;
+    border: none;
+    outline: none; 
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+  }
+
+
+  #divinput {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 60px;
+  }
+
+
+  #result {
+    font-size: 10px;
+    font-family: 'Roboto', sans-serif;
+    color: #8585ad;          
+  }
+
+
+
+  #buttons button a{
+    text-decoration: none;
+    border: none;
+    margin: 0 2px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
     background-color: #422E26;
-    color:#ffffff;
-    font-weight: bold;
-  }
+    height: 30px;
+    width: 100px;
+    font-size: 20px;
+    border-radius: 10px;
     
-
-i {
-  font-size: 24px;
-}
-
-#user, #password {
-  height: 40px;
-  width: 280px;
-  background-color: #DCDCDC;
-  border: none;
-  outline: none; 
-  font-family: 'Roboto', sans-serif;
-  font-size: 25px;
-}
-
-
-#divinput {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 60px;
-}
-
-
-#result {
-  font-size: 10px;
-  font-family: 'Roboto', sans-serif;
-  color: #8585ad;          
-}
-
-
-
-#buttons button a{
-  text-decoration: none;
-  border: none;
-  margin: 0 2px;
-  font-family: 'Roboto', sans-serif;
-  color: white;
-  background-color: #422E26;
-  height: 30px;
-  width: 100px;
-  font-size: 20px;
-  border-radius: 10px;
-  
-}
-#buttons button a:hover{
-  text-decoration: none;
-  border-color: #422E26;
-  font-family: 'Roboto', sans-serif;
-  color: #422E26;
-  background-color: #ffffff;
-  height: 30px;
-  width: 300px;
-  font-size: 20px;
-  border: solid 1px;
-  
-}
+  }
+  #buttons button a:hover{
+    text-decoration: none;
+    border-color: #422E26;
+    font-family: 'Roboto', sans-serif;
+    color: #422E26;
+    background-color: #ffffff;
+    height: 30px;
+    width: 300px;
+    font-size: 20px;
+    border: solid 1px;
+    
+  }
 
 </style>

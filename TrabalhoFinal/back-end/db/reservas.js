@@ -38,7 +38,6 @@ const reservas = new mongoose.Schema({
         type: Number,
         require: true
     },
-
     horaFinal: {
         type: Number,
         require: true

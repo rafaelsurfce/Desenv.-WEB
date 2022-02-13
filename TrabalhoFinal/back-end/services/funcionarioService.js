@@ -15,7 +15,7 @@ class FuncionarioService{
         try{
             const query = await funcionarios.findOne({userName: usuario, password: senha}).exec();
 
-            console.log(query)
+            
 
             if (query !=null && usuario === query.userName && senha === query.password){
                 return "usuário logado com sucesso"
@@ -35,7 +35,7 @@ class FuncionarioService{
             const user = await funcionarios.findOne({userName: usuario}).exec();
             const cpff = await funcionarios.findOne({cpf: cpf}).exec();
             
-            
+            console.log(user)           
 
             
             let result;
@@ -60,13 +60,17 @@ class FuncionarioService{
                     email: funcionario.email,
                     userName: funcionario.usuario,
                     password: funcionario.password
-                })
+                }).then(() => {
+                    console.log("cadastro realizado com sucesso")
+                }).catch((erro) => {
+                    console.log("Erro: "+erro)
+                });
                 result = 'usuario cadastrado com sucesso';
                 
             }
 
 
-            
+            console.log(result);
             return result;
         } catch (err){ 'erro '+err}
                

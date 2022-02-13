@@ -13,7 +13,7 @@ const funcionarios = new mongoose.Schema({
         require: true
     },
     telefone: {
-        type: Number
+        type: String
     },
     email: {
         type: String
