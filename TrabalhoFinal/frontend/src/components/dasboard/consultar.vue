@@ -91,10 +91,9 @@
 
         async deleteReserva(id) {
             try{
-                console.log(id);
                 const resposta =  await axios.delete(`/consultar/${id}`);
                 const {msg} = resposta.data;
-                console.log(msg);
+                
                 
             }catch(erro){console.log(erro)}
 

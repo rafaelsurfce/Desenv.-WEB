@@ -120,7 +120,6 @@
                     }
                     const pergunta = await axios.put(`/consultar/${this.$route.params.id}`, data)
                     const {resultado} = pergunta.data;
-                    console.log(resultado)
                     this.resultado = resultado;
                     this.cliente_input = null;
                     this.cpf_input = null;
